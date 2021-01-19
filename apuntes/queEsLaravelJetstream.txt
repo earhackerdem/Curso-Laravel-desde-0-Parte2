@@ -1,0 +1,19 @@
+En el archivo de configuración de Jetstream
+
+config/jetstream.php
+
+En el arreglo, features, se pueden activar o desactivar las opciones de Jetstream,
+en esta aplicación se han activado las imágenes para los perfiles de usuario.
+
+En caso de que no te carguen las imágenes puedes intentar removiendo del archivo
+
+.env
+
+La configuración
+
+APP_URL=
+
+Ya que dicha URL podría no corresponder a la mostrada en tu navegador por la aplicación
+
+
+
