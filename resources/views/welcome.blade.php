@@ -21,7 +21,8 @@
     </head>
 
     @php
-        $color= 'yellow';
+        $color= 'red';
+        $alert = "alert2";
     @endphp
 
     <body>
@@ -34,19 +35,20 @@
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, vitae!
             </x-alert>
 
-            <x-alert>
+            <x-alert2 color="blue" class="mb-4">
                 <x-slot name="title">
-                    Titulo 2
+                    Titulo de prueba
                 </x-slot>
-                Hola mundo
-            </x-alert>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non, totam?
+            </x-alert2>
 
-            <x-alert>
+            <x-dynamic-component :component="$alert">
                 <x-slot name="title">
-                    Titulo 2
+                    Titulo de prueba
                 </x-slot>
-                Hola mundo
-            </x-alert>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non, totam?
+            </x-dynamic-component>
+
 
         </div>
 
