@@ -1,0 +1,41 @@
+Los middlewares permiten recibir una solicitud del tipo request y
+verificar ciertos parámetros para decidir si dicha solicitud deberá
+proceder, y en caso de que no, dirigir al usuario a otro sitio.
+
+
+Para generar un middleware utilizar el comando
+
+php artisan make:middleware MiddlewareName
+
+Se creara el archivo en la ruta
+
+app/Http/Middleware/MiddlewareName.php
+
+La función handle de dicho archivo recibe el request y la siguiente acción
+en forma de closure. Es ahi donde se define si procede o no
+
+Para poder hacer uso de dicho Middleware se deberá registrar en el archivo
+con ruta
+
+app/Http/Kernel.php
+
+
+En el arreglo $routeMiddleware, definiendo un alias y apuntando a dicho middleware
+especificando antes su namespace
+
+namespace = App\Http\Middleware\
+
+Quedando así
+
+'middlewareName' => \App\Http\Middleware\middlewareName::class
+
+'alias' => namespace\middlewareName::class
+
+En las rutas que se desee usar dicho middleware utilizar la función middleware
+
+En el ejemplo de la clase se usan dos middlewares
+
+Route::get('prueba',function(){
+    return "Has accedido correctamente a esta ruta";
+})->middleware('auth:sanctum','age');
+
