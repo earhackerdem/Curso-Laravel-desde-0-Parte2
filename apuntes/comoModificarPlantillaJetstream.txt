@@ -1,0 +1,19 @@
+Para poder modificar los componentes de jetstream y poder darle seguimiento,
+se debe publicar dichos componentes, debido a que estos se encuentran en la carpeta
+vendor, mientras que lo que nos interesa es que se encuentren en la carpeta resources del proyecto.
+Utiliza el siguiente comando
+
+php artisan vendor:publish --tag=jetstream-views
+
+Esto copia el contenido de la carpeta
+
+[/vendor/laravel/jetstream/resources/views]
+
+al siguiente directorio
+
+
+[/resources/views/vendor/jetstream]
+
+Esto permitirá tener dichos componentes en la carpeta resources, donde podremos hacerles cambios
+rastreables con git, además de que al actualizar a una nueva versión de Laravel, estos archivos
+no se sobrescribirán, como si pasaría con los archivos de la carpeta vendor
