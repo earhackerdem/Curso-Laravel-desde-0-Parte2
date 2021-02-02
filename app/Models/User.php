@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -58,4 +59,13 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    //Relación uno a uno
+    public function profile()
+    {
+        // $profile =  Profile::where('user_id',$this->id)->first();
+        // $profile =  Profile::where('foreign_key',$this->local_key)->first();
+        // return $profile;
+        return $this->hasOne(Profile::class);
+    }
 }
