@@ -1,0 +1,62 @@
+Para definir una relación muchos a muchos se tiene que hacer a nivel de modelo y tablas
+
+En el caso de generar la relación muchos a muchos entre Permisos y Roles se deberá generar una tabla intermedia
+llamada permiso_role, lo anterior debido a que  se debe de crear la tabla intermedia usando los nombres de las
+tablas involucradas en singular y en orden alfabético, otro ejemplo es el de role_user.
+
+Para definir dichas relaciones en las modelos se deberá utilizar el plural del objeto con el que se relaciona,
+y retornar la propiedad BelongsToMany
+
+Por ejemplo en la clase Role que usara la tabla intermedia role_user para su relación de muchos a muchos con user
+
+public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
+y del otro lado, es decir, dentro de la clase User definir
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+Para poder hacer registros dentro de la tabla intermedia se usa la función attach(), justo después de
+llamar a la relación como una función por ejemplo:
+
+Use App\Models\User;
+
+$user = User::find(1);
+
+$user->roles()->attach(2);
+$modelo->relación()->attach(rol);
+
+En caso de querer registrar mas de un valor al mismo tiempo, se utiliza la misma función, esta ves usando un arreglo
+
+$user->roles()->attach([1,2,3]);
+$modelo->relación()->attach([rol1,rol2,rol3]);
+
+Para eliminar dichos valores se utiliza la función detach()
+
+$user->roles()->detach(1)
+
+o bien
+
+$user->roles()->detach([1,2,3])
+
+
+La función sync(), recibe los valores que asignara a la relación, y tomara la decisión de eliminar o insertar registros
+según sea necesario, ya que como dice su nombre, sincronizara lo recibido en parámetros con lo que encuentre en la
+base de datos, por ejemplo, consideremos con el Usuario con ID uno regresa los roles 1 y 2, al pasarle la función
+sync con los valores (2,3), borrara entonces el valor 1 y insertara el valor 3, ya que el valor 1 no fue recibido
+como parámetro, entonces lo eliminara, mientras que el valor 2 ya existe, entones no tiene que hacer una operación,
+entonces con el valor 3 al no existir en la base de datos, entonces lo insertara, ejemplo;
+
+Use App\Models\User;
+$user = User::find(1);
+$user->roles;
+ // Regresa a los roles 1 y 2
+
+$user->roles()->sync([2,3])
+//Elimina el rol 1, e inserta el rol 3
+
