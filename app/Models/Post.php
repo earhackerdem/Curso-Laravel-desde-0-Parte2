@@ -21,4 +21,10 @@ class Post extends Model
         return $this->belongsTo(Categoria::class);
     }
 
+    //Relación uno a uno polimorfica
+    public function image()
+    {
+        return $this->morphOne(Image::class,'imageable');
+    }
+
 }
